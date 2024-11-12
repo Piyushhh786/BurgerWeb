@@ -1,0 +1,80 @@
+<% layout("./layouts/boilerplate.ejs") -%>
+
+    <body>
+        <div class="container mt-5">
+            <h2 class="mb-4 navbar-brand">Burger Listing Edit Form</h2>
+            <form method="post" action="/listing/<%= list._id %>/edit?_method=PUT" class="needs-validation" novalidate>
+                <!-- Title -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input value="<%= list.title %>" type="text" class="form-control" id="title" name="list[title]"
+                        required>
+                </div>
+
+                <!-- Ingredients -->
+                <div class="mb-3">
+                    <label for="ingredients" class="form-label">Ingredients (comma-separated)</label>
+                    <input value="<%= list.ingredients %>" type="text" class="form-control" id="ingredients"
+                        name="list[ingredients]" placeholder="e.g., Lettuce, Tomato, Cheese" required>
+                </div>
+
+                <!-- Price -->
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price (INR)</label>
+                    <input value="<%= list.price %>" type="number" class="form-control" id="price" name="list[price]"
+                        min="0" step="0.01" required>
+                </div>
+
+                <!-- Category -->
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category</label>
+                    <select class="form-select" id="category" name="list[category]" required>
+                        <option value="">Select a category</option>
+                        <option value="beef" <%=list.category==='beef' ? 'selected' : '' %>>Beef</option>
+                        <option value="chicken" <%=list.category==='chicken' ? 'selected' : '' %>>Chicken</option>
+                        <option value="vegetarian" <%=list.category==='vegetarian' ? 'selected' : '' %>>Vegetarian
+                        </option>
+                        <option value="vegan" <%=list.category==='vegan' ? 'selected' : '' %>>Vegan</option>
+                        <option value="coldDrink" <%=list.category==='coldDrink' ? 'selected' : '' %>>Cold Drink
+                        </option>
+                    </select>
+                </div>
+
+
+                <!-- Availability -->
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="isAvailable" name="list[isAvailable]" checked>
+                    <label class="form-check-label" for="isAvailable">
+                        <%= list.isAvailable?'Available' : 'Not Available' %>
+                    </label>
+                </div>
+
+                <!-- Rating -->
+                <!-- <div class="mb-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input value="" type="number" class="form-control" id="rating" name="list[rating]" min="0" max="5" step="0.1"
+                        placeholder="0 to 5">
+                </div> -->
+
+                <!-- Image URL -->
+                <div class="mb-3">
+                    <label for="imageUrl" class="form-label">Image URL</label>
+                    <input value="<%= list.imageUrl %>" type="url" class="form-control" id="imageUrl"
+                        name="list[imageUrl]">
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="list[description]" rows="3" maxlength="500"
+                        required><%= list.description %></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <!-- <hr> -->
+
+
+    </body>

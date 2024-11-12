@@ -1,0 +1,75 @@
+<% layout("./layouts/boilerplate2.ejs") -%>
+
+    <body>
+
+        <div class="cart-container">
+            <div class="cart-items">
+                <div class="cart-title">My Cart</div>
+
+                <!-- Cart Items Loop -->
+                <% if(!carts || !carts.length) { %>
+                    <div class="empty-cart-message">
+                        Please add some items to your cart.
+                    </div>
+                    <hr>
+                    <% } %>
+                        <% let subtotal=0; %>
+                            <% for(let item of carts){ %>
+                                <div class="cart-item " data-aos="fade-up">
+                                    <img src="<%= item.imageUrl %>" alt="Item Image">
+                                    <div class="item-info">
+                                        <div class="item-name">
+                                            <%= item.title %>
+                                        </div>
+                                        <div class="item-price">&#8377; <%= item.price.toLocaleString("en-IN") %>
+                                        </div>
+                                    </div>
+                                    <span class="delete-btn ">
+                                        <form method="post" action="/cart/<%= item._id %>/delete?_method=DELETE"><button
+                                                class="btn btn-primary">Delete 🗑️</button></form>
+                                    </span>
+                                </div>
+                                <% subtotal +=item.price; %>
+                                    <% }; %>
+
+                                        <% if(carts && carts.length){ %>
+                                            <!-- Promo Code Section -->
+                                            <a href="#" class="promo-code" onclick="togglePromoInput()">Enter a promo
+                                                code</a>
+                                            <div class="promo-input">
+                                                <input type="text" placeholder="Promo Code" class="form-control" />
+                                                <button class="btn btn-primary mt-2">Apply</button>
+                                            </div>
+
+                                            <!-- Note Section -->
+                                            <a href="#" class="add-note" onclick="toggleNoteInput()">Add a note</a>
+                                            <div class="note-input">
+                                                <textarea placeholder="Add a note to your order"
+                                                    class="form-control"></textarea>
+                                                <button class="btn btn-primary mt-2">Save Note</button>
+                                            </div>
+                                            <% } %>
+            </div>
+
+            <div class="order-summary">
+                <div class="summary-title">Order Summary</div>
+
+                <div class="summary-section">
+                    <span>Subtotal</span>
+                    <span>&#8377; <%= subtotal.toLocaleString("en-IN") %></span>
+                </div>
+                <div class="summary-section">
+                    <span>Pickup</span>
+                    <span>FREE</span>
+                </div>
+                <div class="summary-section" style="font-weight: bold; font-size: 20px;">
+                    <span>Total</span>
+                    <span>&#8377; <%= subtotal.toLocaleString("en-IN") %></span>
+                </div>
+
+                <button class=" checkout-btn">Checkout</button>
+                <div class="secure-checkout">🔒 Secure Checkout</div>
+            </div>
+        </div>
+
+    </body>

@@ -1,0 +1,87 @@
+<% layout("/layouts/boilerplate.ejs") -%>
+
+    <body>
+        <h1>
+            Item Details:
+
+        </h1>
+        <br>
+        <div class="card offset-4" style="width: 35rem;">
+            <img style="height: 18rem;" class="card-img-top" src="<%= list.imageUrl %>" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">
+                    <%=list.title %>
+                </p>
+            </div>
+        </div>
+        <br>
+        <ul>
+            <li>Description: <%= list.description %>
+            </li><br>
+            <li>Ingredients: <%= list.ingredients.map(item=> `${item}`).join(', ').trim() %> %>
+            </li><br>
+            <li>Category: <%= list.category %>
+            </li><br>
+            <li>
+                <h3>Price:&#8377; <%= list.price.toLocaleString("en-IN") %>
+                </h3>
+            </li>
+        </ul>
+        <% if(currUser&&currUser.isAuth){ %>
+            <div class="edit-delete mb-3">
+                <form action="/listing/<%= list._id %>/edit">
+                    <button class="btn me-5">Edit</button>
+                </form><br>
+                <form method="POST" action="/listing/<%= list._id %>/delete?_method=DELETE"
+                    onsubmit="return confirmDelete(event)">
+                    <button class="btn">Delete</button>
+                </form>
+                <br>
+            </div>
+            <% } %>
+                <div class="parent-btn">
+
+                    <div>
+                        <form method="post" action="/listing/<%= list._id %>/addCart">
+                            <button class="btn btn-primary add-to-cart mt-1 me-5"
+                                onclick="addToCart('<%= list._id %>')">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </form>
+                    </div>
+                    <br>
+                    <%if(currUser && !currUser.isAuth){ %>
+                        <div>
+                            <form method="post" class="needs-validation border py-3 px-2"
+                                action="/listing/<%= list._id %>/<%= list.ownerId %>/customization" novalidate>
+                                <div class="customization"><label for="customization" class="form-label">Your
+                                        Ingredients:</label>
+                                    <input required placeholder="e.g., Lettuce, Tomato, Cheese" class="form-control"
+                                        type="text" name="ingredients" id="customization">
+                                    <div class="invalid-feedback"><small>Mention Ingredients</small></div>
+                                    <br>
+                                </div>
+                                <button class="btn btn-primary add-to-cart mt-1">
+                                    ⚙️ Request
+                                </button>
+                            </form>
+                        </div>
+                        <% } %>
+                </div>
+                <br>
+
+
+                <hr>
+
+
+                <script>
+                    function addToCart(itemId) {
+
+                        // alert("Item Added to Cart");
+                        // axios.post(`listing/${itemId}/addCart`);
+                        // console.log("Item added to cart:", itemId);
+
+                    }</script>
+
+
+    </body>

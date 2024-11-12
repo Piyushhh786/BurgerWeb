@@ -1,0 +1,33 @@
+<% layout("./layouts/boilerplate.ejs") -%>
+
+    <div class="home-container" data-aos="fade-left">
+        <!-- Text Content -->
+        <div class="content">
+            <h5>Our Special Dish</h5>
+            <h1 id="dish-title">Delicious Cheesy Burger</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit natus dolor cumque?</p>
+        </div>
+
+        <!-- Image Container -->
+        <div class="image-container">
+            <img id="dish-image"
+                src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fGJ1cmdlcnxlbnwwfHwwfHx8MA%3D%3D"
+                alt="Burger Image">
+        </div>
+    </div>
+
+    <!-- Dot Navigation for Swipe Effect -->
+    <div class="dot-navigation mb-2">
+        <span class="dot active" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+    </div>
+    <hr>
+    <h4>Our burgers</h4>
+    <%- include("../includes/listings.ejs") %>
+        <!-- <hr> -->
+
+        <!-- JavaScript for Swipe Navigation -->
+        <script src="/js/index.js"></script>
+
+        </body>

@@ -1,0 +1,98 @@
+<% layout("./layouts/boilerplate2.ejs") -%>
+
+    <body>
+
+        <div class="cart-container">
+            <div class="cart-items">
+                <div class="cart-title">
+                    <%= currUser.isAuth?"Customer":"My" %> Requests
+                </div>
+
+                <!-- Cart Items Loop -->
+                <% if(!requests || !requests.length) { %>
+                    <div class="empty-cart-message">
+                        No Requests!!
+                    </div>
+                    <hr>
+                    <% } %>
+                        <% for(let request of requests){ %>
+                            <div class="cart-item " data-aos="fade-up">
+                                <i class="fa-solid fa-burger navbar-brand"></i>
+                                <div class="item-info">
+                                    <div class="item-name">
+                                        Ingredients: <%= request.ingredients.map(item=> `${item}`).join(', ').trim() %>
+                                    </div>
+                                    <div class="item-price"> <Small>
+                                            <!-- <%= request.isSolved?'Solved':'Pending' %>
+                                                <br>
+                                                <%= request.isAccepted && request.isAccepted===true?'Price: ₹':"" %>
+                                                <span><%= request.isAccepted && request.isAccepted===false?'Decline':'' %></span>
+                                                    <%= request.isAccepted &&
+                                                        request.isAccepted===false?'Decline':request.price %> -->
+                                            <% if(request.isSolved===0){ %>
+                                                <p style="font-weight: 500;">Pending</p>
+                                                <% } else if(request.isSolved===1){ %>
+                                                    <p style="font-weight: 500;">Accepted</p>
+                                                    <p style="font-weight: 500;">Price: ₹ <%=
+                                                            request.price.toLocaleString("en-IN") %>
+                                                    </p>
+                                                    <% } else {%>
+                                                        <p style="font-weight: 500;">Declined by Owner!</p>
+                                                        <% } %>
+                                        </Small>
+                                    </div>
+                                </div>
+                                <% if(currUser && currUser.isAuth) { %>
+                                    <% if(request.isSolved===0){ %>
+                                        <span class="delete-btn me-2 ">
+                                            <form class="needs-validation" novalidate method="post"
+                                                action="/userRequests/<%= request._id %>/accept">
+                                                <!-- <label for="price" class="form-label">Price: </label> -->
+                                                <div style="display: flex; height: 2.2rem; width: 15rem;   ">
+                                                    <input required placeholder="Enter Price (INR)" type="text"
+                                                        class="form-control me-2" name="price" id="price">
+                                                    <button class="btn btn-primary">Accept ✓
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </span>
+                                        <span class="delete-btn ">
+                                            <form method="post" action="/userRequests/<%= request._id %>/decline">
+                                                <button class="btn btn-primary">Decline ✗
+                                                </button>
+                                            </form>
+                                        </span>
+                                        <% } else {%>
+                                            <span>
+                                                <h4>Solved: </h4>
+                                                <span><small>
+                                                        <% if(request.isSolved===1){ %>
+                                                            <p>Accepted by You</p>
+                                                            <% } else if(request.isSolved===2){%>
+                                                                <p>Declined by You</p>
+                                                                <% } %>
+                                                    </small></span>
+                                            </span>
+                                            <% } %>
+                                                <% } else if(currUser&&currUser.isAuth===false){ %>
+                                                    <% if(request.isSolved===1){ %>
+                                                        <span class="delete-btn ">
+                                                            <form method="post"
+                                                                action="/userRequests/<%= request._id %>/addCart">
+                                                                <button class="btn btn-primary"><i
+                                                                        class="fas fa-shopping-cart"></i> Add to
+                                                                    Cart</button>
+                                                            </form>
+                                                        </span>
+                                                        <% } %>
+                                                            <% } %>
+                            </div>
+                            <% }; %>
+
+
+            </div>
+
+
+        </div>
+
+    </body>

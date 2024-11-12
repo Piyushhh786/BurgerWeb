@@ -1,0 +1,242 @@
+body {
+    font-family: "Plus Jakarta Sans", system-ui !important;
+    /* font-optical-sizing: auto; */
+    font-weight: 300;
+    font-style: normal;
+    background-color: antiquewhite;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.collapse {
+    display: flex;
+    justify-content: space-between;
+}
+
+.custom-shadow {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* Adjust the values as needed */
+}
+
+.navbar {
+    height: 4rem;
+    background-color: white;
+    /* z-index: 1 !important; */
+}
+
+.navbar-nav .nav-link .active {
+    color: #fe3958;
+}
+
+
+.navbar-brand {
+    font-family: 'Roboto', sans-serif;
+    /* Use a modern sans-serif font */
+    font-size: 1.75rem;
+    /* Adjust the size as needed */
+    font-weight: bold;
+    color: #D84315 !important;
+    margin-left: 2rem;
+    /* Bright color for contrast */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow for depth */
+    transition: color 0.3s ease;
+    /* Smooth color transition */
+}
+
+.navbar-brand:hover {
+    color: #D84315;
+    /* Darken color on hover */
+    text-decoration: none;
+    /* Remove any underline on hover */
+}
+
+/* .navbar .nav-link i {
+    font-size: 1.2rem;
+    /* color: #333; */
+/* transition: color 0.2s ease; */
+/* } */
+
+.navbar .nav-link i:hover {
+    color: #D84315;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    color: #D84315;
+}
+
+
+/* home page  start */
+.home-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 2rem;
+    height: 80vh;
+    background-color: #f8f9fa;
+}
+
+/* Text content styling */
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 40rem;
+}
+
+.content h5 {
+
+    color: #D84315;
+    font-weight: 600;
+}
+
+.content h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 5rem 0;
+    color: #333;
+}
+
+.content p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* Image styling */
+.image-container img {
+    width: 30rem;
+    height: 30rem;
+    border-radius: 30rem;
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Dot navigation styling */
+.dot-navigation {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.dot-navigation span {
+    height: 15px;
+    width: 15px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.dot-navigation .active {
+    background-color: #333;
+}
+
+/* home page end */
+
+/* footer strt */
+footer {
+    margin-top: auto;
+}
+
+.f-info-links a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover {
+
+    text-decoration: underline;
+
+}
+
+.f-info-socials i {
+    font-size: 1.5rem;
+    margin-right: 1rem;
+}
+
+.f-info-socials {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    /* padding-right: 1rem; */
+    align-items: center;
+}
+
+.f-info {
+    height: 8rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    /* margin-top: auto; */
+
+
+}
+
+/* footer ends */
+
+/* btn */
+.btn {
+    background-color: #D84315 !important;
+    border: none !important;
+    color: white !important;
+}
+
+.btn:hover {
+    background-color: black !important;
+}
+
+/* btn ends */
+
+/* card strt */
+.card {
+    border: none !important;
+    border-bottom: 2px solid #000;
+    /* Adjust the thickness, style, and color as needed */
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+    border-radius: 1rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.card-body {
+    padding: 0%;
+}
+
+.card-text {
+    font-weight: 500;
+}
+
+.card-img:hover {
+    opacity: 0.75;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.add-to-cart {
+    display: flex;
+    align-items: center;
+}
+
+/* card ends */
+
+/* individual strt */
+.edit-delete {
+    display: flex;
+}
+
+/* individual end */

@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-md navbar-body-light bg-body-light py-3 border-bottom sticky-top custom-shadow ">
+
+    <a class="navbar-brand" href="/"><i class="fa-solid fa-burger"></i>Burgerr.</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <% if(currUser){ %>
+            <div class="displayUser">
+                <h4>Hello , <%= currUser.username %>
+                </h4>
+            </div>
+            <% } %>
+                <ul class="navbar-nav ms-auto ">
+                    <li class="nav-item ">
+                        <a class="nav-link " href="/">Home <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link  " href="/filter">Filter</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link  " href="/userRequests">
+                            <%= (currUser && currUser.isAuth)?"Customer":"" %> Requests
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/aboutUs">About Us</a>
+                    </li>
+
+                    <% if(currUser&&currUser.isAuth){ %>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/addList">AddListing</a>
+                        </li>
+                        <% } %>
+                </ul>
+                <div class="navbar-nav ms-md-3">
+                    <% if(!currUser){ %>
+                        <a class="nav-link" href="/user/login">Login/Signup</a>
+                        <% } else { %>
+
+                            <a href="/cart" class="nav-link px-2"><i class="fas fa-shopping-cart"
+                                    aria-hidden="true"></i></a>
+                            <a href="/user/logout" class="nav-link px-2"><i
+                                    class="fa-solid fa-right-from-bracket"></i></a>
+                            <!-- <a href="#" class="nav-link px-2"><i class="fa-solid fa-user"></i></a> -->
+                            <% } %>
+
+
+                </div>
+    </div>
+</nav>

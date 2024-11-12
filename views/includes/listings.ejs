@@ -1,0 +1,39 @@
+<body>
+
+    <br>
+    <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 ">
+        <% for(let list of listings) { %>
+            <a class="listing-link" data-aos="fade-up" href="/listing/<%= list._id %>">
+                <div class="card ">
+                    <div class="card-img">
+                        <img style="height: 20rem;" src="<%= list.imageUrl %>" class="card-img-top" alt="listing">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b>
+                                <%= list.title %>
+                            </b> <br>
+                            Price: &#8377; <%= list.price.toLocaleString("en-IN") %>
+                        </p>
+                        <!-- Add to Cart button -->
+                        <form method="post" action="listing/<%= list._id %>/addCart">
+                            <button class="btn btn-primary add-to-cart mt-1" onclick="addToCart('<%= list._id %>')">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </a>
+            <% } %>
+
+    </div>
+    <script>
+        function addToCart(itemId) {
+
+            // alert("Item Added to Cart");
+            // axios.post(`listing/${itemId}/addCart`);
+            // console.log("Item added to cart:", itemId);
+
+        }</script>
+</body>
