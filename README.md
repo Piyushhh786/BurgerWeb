@@ -1,2 +1,2 @@
 # BurgerWeb
-A responsive websit made up with html, css, js, express, nodejs, passportjs ,RESTAPI
+A responsive website made up with html, css, js, express, nodejs, passportjs ,RESTAPI
