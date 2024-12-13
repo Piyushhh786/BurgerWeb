@@ -7,12 +7,13 @@ const path = require("path");
 const ejsMate = require("ejs-mate");//for includes 
 const expressError = require("./error/ExpressError.js");
 const { listingRouter, validateListing } = require("./routes/listing.js");
-const { listingSchema } = require("./joiSchema.js");
+// const { listingSchema } = require("./joiSchema.js");
 const { cartRouter } = require("./routes/cart.js");
 const { requestRouter } = require("./routes/request.js");
 const { filterRouter } = require("./routes/filter.js");
 const userRouter = require("./routes/user.js");
 const session = require("express-session");
+const MongoStrore = require("connect-mongo");
 const Listing = require("./models/listing.js");
 const flash = require("connect-flash");
 const passport = require("passport");
@@ -20,6 +21,15 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const wrapAsync = require("./error/wrapAsync.js");
 const { isLoggedin, isAuth } = require("./middleware.js");
+const multer = require('multer');
+const { storage } = require("./cloudConfig.js");
+// const listing = require("./models/listing.js");
+const upload = multer({ storage });
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+    console.log(process.env.SECRET);
+}
+
 
 
 // ----------x---------
@@ -38,8 +48,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //*----------session setup----------------
+let uri = process.env.ATLAS_DBURL;
+
+const store = MongoStrore.create({
+    mongoUrl: uri,
+    crypto: {
+        secret: process.env.SECRET,
+    },
+    touchAfter: 24 * 3600,
+});
+store.on("error", () => {
+    console.log("Error in mongo store session!!");
+});
 app.use(session({
-    secret: "mysupersecretstring",
+    store,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
@@ -68,6 +91,7 @@ app.use((req, res, next) => {
     // console.log(`${req.user} hello`);
     next();
 });
+
 main().then(() => {
     console.log("successfully connected with mongodb");
 }).catch((err) => {
@@ -75,7 +99,7 @@ main().then(() => {
     // next(err);
 });
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/burger');
+    await mongoose.connect(uri);
 }
 
 app.listen(port, () => {
@@ -91,19 +115,23 @@ app.get("/", wrapAsync(async (req, res, next) => {
 app.get("/addList", isLoggedin, isAuth, (req, res) => {
     // console.log(req.user);   
     res.render("./listings/add.ejs", { currentPage: 'addList' });
+    //! our form will not send the file to the server so we have to use multer 
+    //! if you solved the above problem then how you can save the image in the database and render it in the browser(use cloud storage)
 });
-app.post("/addList", isLoggedin, isAuth, validateListing, wrapAsync(async (req, res) => {
-    let list = req.body.list;
-    console.log(list);
-    console.log(req.user._id);
-    list.ownerId = req.user._id,
-        listingSchema.validate(list);
-    let listing = new Listing(list);
-    await listing.save();
+app.post("/addList", upload.single('list[image]'), validateListing, wrapAsync(async (req, res, next) => {
+    const url = req.file.path;
+    const foldername = req.file.filename;
+    req.body.list.ingredients = req.body.list.ingredients.split(",").map(e => e.trim());
+    const newListing = new Listing(req.body.list);
+    newListing.ownerrId = req.user._id;
+    newListing.image = { url, foldername };
+    await newListing.save();
     //flash msg
-    req.flash("ListAdded", "Listing Successfully added");
+    req.flash("success", "Listing Successfully added");
     res.redirect("/");
+
 }));
+
 app.use("/aboutUs", (req, res) => {
     res.render("./rest/about.ejs");
 });

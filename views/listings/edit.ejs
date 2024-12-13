@@ -3,7 +3,8 @@
     <body>
         <div class="container mt-5">
             <h2 class="mb-4 navbar-brand">Burger Listing Edit Form</h2>
-            <form method="post" action="/listing/<%= list._id %>/edit?_method=PUT" class="needs-validation" novalidate>
+            <form enctype="multipart/form-data" method="post" action="/listing/<%= list._id %>/edit?_method=PUT"
+                class="needs-validation" novalidate>
                 <!-- Title -->
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
@@ -58,9 +59,8 @@
 
                 <!-- Image URL -->
                 <div class="mb-3">
-                    <label for="imageUrl" class="form-label">Image URL</label>
-                    <input value="<%= list.imageUrl %>" type="url" class="form-control" id="imageUrl"
-                        name="list[imageUrl]">
+                    <label for="imageUrl" class="form-label">Image: </label>
+                    <input type="file" class="form-control" id="imageUrl" name="list[image]">
                 </div>
 
                 <!-- Description -->

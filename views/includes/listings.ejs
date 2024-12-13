@@ -3,10 +3,11 @@
     <br>
     <div class="row row-cols-lg-3 row-cols-md-3 row-cols-sm-1 ">
         <% for(let list of listings) { %>
+
             <a class="listing-link" data-aos="fade-up" href="/listing/<%= list._id %>">
                 <div class="card ">
                     <div class="card-img">
-                        <img style="height: 20rem;" src="<%= list.imageUrl %>" class="card-img-top" alt="listing">
+                        <img style="height: 20rem;" src="<%= list.image.url %>" class="card-img-top" alt="listing">
                     </div>
                     <div class="card-body">
                         <p class="card-text">

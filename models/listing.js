@@ -38,15 +38,24 @@ const listingSchema = new mongoose.Schema({
         default: 0,
         min: 0,
     },
-    imageUrl: {
-        type: String,
-        default: "https://media.istockphoto.com/id/1206323282/photo/juicy-hamburger-on-white-background.jpg?s=612x612&w=0&k=20&c=K0DxyiChLwewXcCy8aLjjOqkc8QXPgQMAW-vwRCzqG4=",
-        validate: {
-            validator: function (v) {
-                return /^https?:\/\/.+/.test(v); // Checks for a valid URL format
-            },
-            message: props => `${props.value} is not a valid URL!`
-        }
+    // imageUrl: {
+    //     type: String,
+    //     default: "https://media.istockphoto.com/id/1206323282/photo/juicy-hamburger-on-white-background.jpg?s=612x612&w=0&k=20&c=K0DxyiChLwewXcCy8aLjjOqkc8QXPgQMAW-vwRCzqG4=",
+    //     validate: {
+    //         validator: function (v) {
+    //             return /^https?:\/\/.+/.test(v); // Checks for a valid URL format
+    //         },
+    //         message: props => `${props.value} is not a valid URL!`
+    //     }
+    // },
+    image: {
+        url: {
+            type: String,
+            default: "https://media.istockphoto.com/id/1206323282/photo/juicy-hamburger-on-white-background.jpg?s=612x612&w=0&k=20&c=K0DxyiChLwewXcCy8aLjjOqkc8QXPgQMAW-vwRCzqG4=",
+        },
+        foldername: {
+            type: String,
+        },
     },
     description: {
         type: String,
