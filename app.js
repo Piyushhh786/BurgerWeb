@@ -123,7 +123,7 @@ app.post("/addList", upload.single('list[image]'), validateListing, wrapAsync(as
     const foldername = req.file.filename;
     req.body.list.ingredients = req.body.list.ingredients.split(",").map(e => e.trim());
     const newListing = new Listing(req.body.list);
-    newListing.ownerrId = req.user._id;
+    newListing.ownerId = req.user._id;
     newListing.image = { url, foldername };
     await newListing.save();
     //flash msg
@@ -171,6 +171,7 @@ app.all("*", (req, res, next) => {
 app.use((err, req, res, next) => {
     let { status = 500, message = "Something went wrong!" } = err;
     console.log(status, message);
+    console.log(err);
     return res.status(status).render("listings/error.ejs", { message });
 });
 

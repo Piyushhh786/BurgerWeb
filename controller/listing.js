@@ -14,8 +14,13 @@ module.exports.showListing = async (req, res, next) => {
 module.exports.destroyListing = async (req, res, next) => {
     let { itemId } = req.params;
     console.log("Deletion ", itemId);
-    let result = await Listing.findByIdAndDelete(itemId);
-    console.log(result);
+    let result = await Listing.findById(itemId);
+    if (req.user._id != result.ownerId) {
+        req.flash("error", "You are not authorized to delete this listing");
+        return res.redirect("/");
+    }
+    await Listing.findByIdAndDelete(itemId);
+    console.log(result, "listing deleted1!");
     req.flash("success", "Listing Deleted Successfully");
     res.redirect("/");
 
@@ -80,6 +85,7 @@ module.exports.customization = async (req, res) => {
     let { ingredients } = req.body;
     ingredients = ingredients.split(",").map(item => ` ${item}`.trim().toUpperCase());
     const customerId = req.user._id;
+    console.log(ownerId, ".....");
     const request = new Request({
         ownerId: ownerId,
         ingredients: ingredients,

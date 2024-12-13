@@ -66,7 +66,6 @@ const listingSchema = new mongoose.Schema({
     ownerId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        default: '6725db25a6d6339f84e20631'
     }
 });
 

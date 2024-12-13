@@ -3,7 +3,7 @@ const router = express.Router({ mergeParams: true });
 const { listingSchema } = require("../joiSchema.js");
 const wrapAsync = require("../error/wrapAsync.js");
 const expressError = require("../error/ExpressError.js");
-const { isLoggedin } = require("../middleware.js");
+const { isLoggedin, isAuth } = require("../middleware.js");
 const multer = require('multer');
 const { storage } = require("../cloudConfig.js");
 // const listing = require("./models/listing.js");
@@ -38,7 +38,7 @@ const validateListing = (req, res, next) => {
 //* -------------------- Normal CRUD operations on Listing --------------------------
 router.get("/", wrapAsync(listingController.showListing));
 
-router.delete("/delete", isLoggedin, wrapAsync(listingController.destroyListing));
+router.delete("/delete", isLoggedin, isAuth, wrapAsync(listingController.destroyListing));
 
 //* --------------- Edit listing ------------------
 
